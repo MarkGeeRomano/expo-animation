@@ -1,21 +1,29 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Animated } from 'react-native'
 
 class Ball extends React.Component {
+  componentWillMount() {
+    this.position = new Animated.ValueXY(0, 0)
+    const toValue = { toValue: { x: 200, y: 500 } }
+    Animated.spring(this.position, toValue).start()
+  }
+
   render() {
     return (
-      <View style={styles.ball}/>
+      <Animated.View style={this.position.getLayout()}>
+      <View style={styles.ball} />
+      </Animated.View>
     )
   }
 }
 
 const styles = {
-   ball: {
-     height: 60,
-     width: 60,
-     borderRadius: 30,
-     borderWidth: 30,
-     borderColor: 'black'
-   }
+  ball: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    borderWidth: 30,
+    borderColor: 'black'
+  }
 }
 export default Ball
